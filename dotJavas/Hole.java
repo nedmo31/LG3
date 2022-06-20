@@ -37,6 +37,10 @@ public class Hole
     	this(n, m, (int)((1-(Math.random()*2))*125),
     			(int)(Math.random()*2), (int)(Math.random()*2));
     }
+    public Hole(int n, int m, int y) {
+    	this(n, m, y,
+    			(int)(Math.random()*2), (int)(Math.random()*2));
+    }
     public Hole(int n, int m, int y, int waters, int sands) {
     	this.x = (int)((Math.random()*n) + m) + .5;
     	this.y = y;	

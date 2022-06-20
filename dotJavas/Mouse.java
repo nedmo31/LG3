@@ -24,11 +24,11 @@ public class Mouse extends MyPanel
             public void mousePressed(MouseEvent e) { 
             	if (e.getButton() == MouseEvent.BUTTON1) {
             		
-					if (Play.graphicsStage == 0) {
+            		if (Play.graphicsStage == 0) {
 						if (Mouse.X >= 50 && Mouse.X <= 200 && Mouse.Y >= 175 && Mouse.Y <= 210) {// Clicked Start on
 																									// menu
 							Play.exitCourse = true;
-							Play.currentCourse = new Course(true);
+							Play.currentCourse = new Course();
 							Play.graphicsStage = 1;
 
 							
@@ -59,6 +59,19 @@ public class Mouse extends MyPanel
 							System.out.println("Clicked, current course" + Play.currentCourse);
 							Play.graphicsStage = 1;
 						}
+            		 else if (Mouse.X >= 50 && Mouse.X <= 200 && Mouse.Y >= 425 && Mouse.Y <= 460) { // Tournament
+						
+            			 	if (Play.currentPlayer.getConsist() + Play.currentPlayer.getPower() +
+            			 			Play.currentPlayer.getPutting() > 18) {
+            			 		MyPanel.currentTextBox = new TextBox("No cheating!");
+            			 	} else {
+	            			 	Play.exitCourse = true;
+								Play.currentCourse = new Course(true);
+								System.out.println("Clicked, current course" + Play.currentCourse);
+								Play.graphicsStage = 1;
+								Play.startTime = System.currentTimeMillis();
+            			 	}
+            			}
 						
 					}
             	else if (Play.graphicsStage == 2) {
@@ -115,10 +128,8 @@ public class Mouse extends MyPanel
                 	if (Mouse.X <= 800 && Mouse.X >= 645 && Mouse.Y >= 250 && Mouse.Y <= 310)
                 		Play.graphicsStage = 0;
             	}
-            	else if (Play.graphicsStage == 1) {
-            		if (MyPanel.currentTextBox != null) {
-            			MyPanel.currentTextBox = null;
-            		}
+            	if (MyPanel.currentTextBox != null) {
+            		MyPanel.currentTextBox = null;
             	}
             	
             	
@@ -494,7 +505,7 @@ public class Mouse extends MyPanel
         }*/
         
         
-      //to show available angles
+      //to show the trajectory
         if (Play.backspin) 
         	g.setColor(new Color(153, 0, 0));
         else 
@@ -502,12 +513,12 @@ public class Mouse extends MyPanel
         if (!Play.go && !Play.putting) {
         if (Play.backwards) {
         	for(Point p : Play.currentClub.trajectory(5 + (int)Play.currentPlayer.getConsist())) {
-        		g.fillOval(2*(int)Play.ball.getX()-p.x, 590-p.y, 5, 5);
+        		g.fillOval(2*(int)Play.ball.getX()-p.x+2, 590-p.y+2, 5, 5);
         	}
         }
         else {
         	for(Point p : Play.currentClub.trajectory(5 + (int)Play.currentPlayer.getConsist())) {
-        		g.fillOval(p.x, 590-p.y, 5, 5);
+        		g.fillOval(p.x+2, 590-p.y+2, 5, 5);
         	}
         }
         }

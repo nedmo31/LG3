@@ -106,6 +106,7 @@ public class Player {
 		}
 		catch (FileNotFoundException e) {
 			Play.outputPrint("Can't continue with no player");
+			this.name = "null";
 		}
 		addAllClubs();
 		Play.gravHam.setCharges(gravHamCharges);

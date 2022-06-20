@@ -45,10 +45,10 @@ public class Course {
 	}
 
 	public Course(String Driving) {
-		this("Driving Range", 18, new Hole(300, 300), new Hole(300, 300), new Hole(300, 300), new Hole(300, 300),
-				new Hole(300, 300), new Hole(300, 300), new Hole(300, 300), new Hole(300, 300), new Hole(300, 300),
-				new Hole(300, 300), new Hole(300, 300), new Hole(300, 300), new Hole(300, 300), new Hole(300, 300),
-				new Hole(300, 300), new Hole(300, 300), new Hole(300, 300), new Hole(300, 300));
+		this("Driving Range", 18, new Hole(300, 300, -50), new Hole(300, 300, -30), new Hole(300, 150, 10), new Hole(300, 300, 0),
+				new Hole(300, 300, -40), new Hole(300, 300, -20), new Hole(300, 300, -100), new Hole(300, 100, 20), new Hole(300, 300, 0),
+				new Hole(300, 300, -50), new Hole(300, 300, -30), new Hole(300, 300, -30), new Hole(300, 200, 10), new Hole(300, 300, 0),
+				new Hole(300, 300, -20), new Hole(300, 300, -20), new Hole(300, 300, 50), new Hole(300, 300, -100));
 		showScorecard = false;
 		strokeOut = 1;
 	}
@@ -118,6 +118,11 @@ public class Course {
 			Play.currentPlayer.savePlayer();
 			System.out.println("Done with course" + this);
 			Play.exitCourse = false;
+		}
+		if (this.name.equals("Tournament")) {
+			Play.endTime = System.currentTimeMillis();
+			int score = (int)((Play.endTime-Play.startTime) / 3000) + fullScore;
+			MyPanel.currentTextBox = new TextBox("Final score: "+score);
 		}
 	}
 

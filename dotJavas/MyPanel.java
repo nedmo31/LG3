@@ -9,8 +9,6 @@ package golf3;
   
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
 
 public class MyPanel extends JPanel  {
     /**
@@ -28,59 +26,14 @@ public class MyPanel extends JPanel  {
     	
     }*/
     public MyPanel() {
-
         setBorder(BorderFactory.createLineBorder(Color.black));
-        //this.add(output);
-        
-        /*addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                if (!Play.firstClick) {
-                    Play.clickTwo.setX(e.getX()); Play.clickTwo.setY(e.getY());
-                    Play.firstClick = true;
-                    double pow = Math.sqrt( Math.pow(Play.clickOne.getX() - Play.clickTwo.getX(), 2)
-                    + Math.pow(Play.clickTwo.getY() - Play.clickOne.getY(), 2)) / 5;
-                    double ang = Math.atan( (Play.clickTwo.getY() - Play.clickOne.getY())
-                    / (Play.clickOne.getX() - Play.clickTwo.getX() ) );
-                    Play.hit(pow, Math.abs(ang), new Club(5, 85, 100, ""), Play.h1); //FIX
-                    System.out.println("CLICKED SECOND, POWER" +pow+" "+ang);
-                    hit = true;
-                }
-                else if (Play.firstClick) {
-                    Play.clickOne.setX(e.getX()); Play.clickOne.setY(e.getY());
-                    Play.firstClick=false;
-                    System.out.println("CLICKED FIRST MYPANEL CLASS");
-                }
-                
-            }
-        }); */
-
-        addMouseMotionListener(new MouseAdapter() {
-            public void mouseMoved(MouseEvent e) {
-                repaint2();
-            }
-        });
-        
-    }
-    
-        /*
-        addMouseMotionListener(new MouseAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                repaint2();
-            }
-        });
-        */
-    
-    
-    public void repaint2() {
-        //if ((Play.ball.getX()!=x) || (Play.ball.getY()!=y)) {
-            repaint();
-            repaint();
-        //}
     }
     
     public Dimension getPreferredSize() {
         return new Dimension(1200,775);
     }
+    
+    
     /*
      * Graphics stages
      * 0: Main Menu
@@ -199,6 +152,12 @@ public class MyPanel extends JPanel  {
             	else 
             		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         	g.drawString("Putting Green", 50, 400);
+        	if (Mouse.X >= 50 && Mouse.X <= 200 &&
+            		Mouse.Y >= 425 && Mouse.Y <= 460) 
+            		g.setFont(new Font("TimesRoman", Font.BOLD, 25));
+            	else 
+            		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+        	g.drawString("Tournament", 50, 450);
         	/*g.drawImage(Play.menuPic, 0,0,null);
         	g.setColor(Color.darkGray);
         	
@@ -354,23 +313,23 @@ public class MyPanel extends JPanel  {
         
         
         g.setColor(Color.gray);
-        if (Play.putting)
-        	g.setColor(Color.red);
-        g.fillRect(799, 0, 401, 401);
-        g.setColor(new Color(50, 250, 50));
-        g.fillRect(800, 0, 400, 400);
-        g.setColor(new Color(50, 200, 50));
-        g.fillOval(800, 0, 400, 400);
-        g.setColor(Color.BLACK);
-        g.fillOval((int)Play.current.getGreen().getX()-10, (int)Play.current.getGreen().getY()-10, 20, 20);
-        g.setColor(Color.WHITE);
         if (Play.putting) {
-        	g.fillOval((int)Play.current.getGreen().getBallX()-6, (int)Play.current.getGreen().getBallY()-6, 12, 12);
+	        g.fillRect(798, 0, 402, 402);
+	        g.setColor(new Color(50, 250, 50));
+	        g.fillRect(800, 0, 400, 400);
+	        g.setColor(new Color(50, 200, 50));
+	        g.fillOval(800, 0, 400, 400);
+	        g.setColor(Color.BLACK);
+	        g.fillOval((int)Play.current.getGreen().getX()-10, (int)Play.current.getGreen().getY()-10, 20, 20);
+	        g.setColor(Color.WHITE);
+	        if (Play.putting) {
+	        	g.fillOval((int)Play.current.getGreen().getBallX()-6, (int)Play.current.getGreen().getBallY()-6, 12, 12);
+	        }
+	        g.setColor(Color.BLACK);
+	    	g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+	
+	        g.drawString("Green slope: "+Play.current.getGreen().getSlope(), 925, 20);
         }
-        g.setColor(Color.BLACK);
-    	g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-
-        g.drawString("Green slope: "+Play.current.getGreen().getSlope(), 925, 20);
         /*int [] x = new int [3];
         int [] y = new int [3];
         if (Play.current.getGreen().getSlope().equalsIgnoreCase("down")) {        
@@ -517,16 +476,21 @@ public class MyPanel extends JPanel  {
         	g.drawString(t.getName()+" - "+t.getCharges(),125,25 + i*50);
         	g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         }
-        
-        //Show the text box
+        }
+      //Show the text box
         if (currentTextBox != null) {
         	//g.setColor(new Color(250, 243, 190));
         	//g.fillRect(300, 550, 600, 200);
+        	g.setFont(new Font("TimesRoman", Font.BOLD, 25));
         	g.setColor(Color.black);
         	g.drawRect(300, 550, 600, 200);
-        	g.drawString(currentTextBox.getText(), 325, 575);
+        	String[] lines = currentTextBox.getText();
+        	for (int i = 0; i < lines.length; i++) {
+        		if (lines[i] != null) {
+        			g.drawString(lines[i], 325, 585+i*30);
+        		}
+        	}
+        	
         }
-        }
-        
     }  
 }

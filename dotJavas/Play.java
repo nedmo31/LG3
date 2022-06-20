@@ -41,8 +41,9 @@ public class Play extends JFrame implements ActionListener {
 		p.graphicsThread();
 		outputBox();
 
-		if(currentPlayer == null) 
-			MyPanel.currentTextBox = new TextBox("Create a Player!");
+		currentPlayer = new Player("playerdata.txt");
+		if(currentPlayer.getName() == "null") 
+			MyPanel.currentTextBox = new TextBox("Welcome new Player!", "Click new player to make your golfer!");
 		
 		// Music
 		try {
@@ -54,7 +55,6 @@ public class Play extends JFrame implements ActionListener {
 		
 		// Game
 		tools = new Tool[] { gravHam, windWak, flattener };
-		currentPlayer = new Player("playerdata.txt");
 		while (true) {
 			Course c = currentCourse;
 			currentCourse.playCourse();
@@ -240,4 +240,7 @@ public class Play extends JFrame implements ActionListener {
 	public static Tool[] tools;
 
 	public static Hole current = h1;
+	
+	//For the timed tournament
+	public static long startTime, endTime;
 }
